@@ -22,10 +22,10 @@ namespace BusinessLayers.Models
         [Range(-100000, 100000, ErrorMessage = "Mängden måste vara mellan 1 och 100000")]
         public int Quantity { get; set; }
 
-        [Range(0, 999999999, ErrorMessage = "Priset måste vara mellan 0,01 och 999999999")]
+        [Range(0.01, 999999999, ErrorMessage = "Priset måste vara mellan 0,01 och 999999999")]
         public decimal Price { get; set; }
         [DisplayName("Moms")]
-        [Range(0, 100, ErrorMessage = "Moms måste vara ett% mellan 0 och 100")]
+        [Range(0.00, 100, ErrorMessage = "Moms måste vara ett% mellan 0 och 100")]
         public decimal Vat { get; set; }
 
         

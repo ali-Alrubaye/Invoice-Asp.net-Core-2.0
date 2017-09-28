@@ -57,11 +57,19 @@ namespace Repositories
             
             return await find;
         }
-
+        public async Task<OrderDetail> GetOdById(int? id)
+        {
+            var find = ctx.OrderDetails
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.OrderId == id);
+            return await find;
+        }
         public async Task InsertAsync(OrderDetail entity)
         {
-                //ctx.Add(entity);
-                ctx.Entry(entity).State = EntityState.Added;
+            var num = ctx.Orders.Select(c => c.OrderId).LastOrDefault();
+            entity.OrderId = num;
+            //ctx.Add(entity);
+            ctx.Entry(entity).State = EntityState.Added;
                 await ctx.SaveChangesAsync();
         }
 

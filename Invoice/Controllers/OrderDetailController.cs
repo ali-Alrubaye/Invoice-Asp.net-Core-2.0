@@ -86,7 +86,7 @@ namespace InvoiceTow.Controllers
                 return NotFound();
             }
 
-            var orderDetail = await _orderDetailMapper.BlGetById(id);
+            var orderDetail = await _orderDetailMapper.BlGetOdById(id);
           
             if (orderDetail == null)
             {

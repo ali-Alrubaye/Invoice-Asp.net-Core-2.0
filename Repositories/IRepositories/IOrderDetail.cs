@@ -23,5 +23,6 @@ namespace Repositories.IRepositories
 
         bool OrderDetailExists(int id);
         IEnumerable<OrderDetail> BlGetAllOrderDetail();
+        Task<OrderDetail> GetOdById(int? id);
     }
 }

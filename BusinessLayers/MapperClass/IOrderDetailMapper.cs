@@ -13,5 +13,6 @@ namespace BusinessLayers.MapperClass
         Task BlInser(OrderDetailVm OrderDetail);
         Task BlUpdateAsync(OrderDetailVm OrderDetail);
         bool OrderDetailExists(int id);
+        Task<OrderDetailVm> BlGetOdById(int? id);
     }
 }

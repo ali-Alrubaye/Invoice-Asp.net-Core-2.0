@@ -30,31 +30,6 @@ namespace Repositories
 
             
 
-            // Put this at the end of your configure method
-
-            //builder.Entity<OrderDetail>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.OrderID, e.ProductID });
-
-            //    entity.HasIndex(e => e.ProductID);
-
-            //    entity.Property(e => e.OrderID).HasColumnName("OrderID");
-
-            //    entity.Property(e => e.ProductID).HasColumnName("ProductID");
-
-            //    entity.HasOne(d => d.Orders)
-            //        .WithMany(p => p.OrderDetails)
-            //        .HasForeignKey(d => d.OrderID)
-            //        .IsRequired()
-            //        .OnDelete(DeleteBehavior.Cascade);
-
-            //    entity.HasOne(d => d.Products)
-            //        .WithMany(p => p.OrderDetails)
-            //        .HasForeignKey(d => d.ProductID)
-            //        .IsRequired()
-            //        .OnDelete(DeleteBehavior.Cascade);
-            //});
-
 
             base.OnModelCreating(builder);
         }

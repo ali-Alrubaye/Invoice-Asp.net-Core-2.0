@@ -61,5 +61,12 @@ namespace BusinessLayers.MapperClass
 
             return randomCustomer;
         }
+
+        public async Task<OrderDetailVm> BlGetOdById(int? id)
+        {
+            var getRepo = await _OrderDetailRepository.GetOdById(id);
+            var randomOrderDetail = Mapper.Map<OrderDetail, OrderDetailVm>(getRepo);
+            return randomOrderDetail;
+        }
     }
 }
