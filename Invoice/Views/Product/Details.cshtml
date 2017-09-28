@@ -1,0 +1,60 @@
+﻿@model BusinessLayers.Models.ProductVm
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Article)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Article)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SupplierName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SupplierName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.VatProduct)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.VatProduct)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvancePaymentTax)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AdvancePaymentTax)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CategorysVm.CategoryName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CategorysVm.CategoryName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ProductId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

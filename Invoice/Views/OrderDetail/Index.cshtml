@@ -1,0 +1,65 @@
+﻿@model IEnumerable<OrderDetailVm>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.OrderId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrdersVm.OrderNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductsVm.Article)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductsVm.CategorysVm.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.OrdersVm.CustomerOrdersVm.FullName)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrdersVm.OrderNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductsVm.Article)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductsVm.CategorysVm.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrdersVm.CustomerOrdersVm.FullName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.OrderId  }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.OrderId }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.OrderId })
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

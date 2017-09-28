@@ -1,0 +1,81 @@
+﻿@model InvoiceVm
+<div class="row" id="infoInvoice">
+    <header class="clearfix">
+        <div id="logo">
+            @*<img src="logo.png">*@
+        </div>
+        <h1>Faktura</h1>
+        <div id="company" class="clearfix">
+            @foreach(var com in @Model.CustomerInstVMs) { 
+            <div>@com.CompanysVm.CompanyName</div>
+            <div>@com.CompanysVm.Address <br /> @com.CompanysVm.PostCode @com.CompanysVm.City,<br/> @com.CompanysVm.Country
+            </div>
+            <div>(+46) @com.CompanysVm.Phone</div>
+            <div><a href="@com.CompanysVm.Email">@com.CompanysVm.Email</a>
+            </div>}
+        </div>
+        <div id="project">
+            @foreach(var cust in @Model.CustomerInstVMs) { 
+            <div><span>KUND</span> @cust.FullName
+            </div>
+            <div><span>ADRESS</span> @cust.Address @cust.PostCode @cust.City, @cust.Country
+            </div>
+            <div><span>EMAIL</span> <a href="@cust.Email">@cust.Email</a>
+            </div>}
+        @foreach (var ord in @Model.OrderInstVMs)
+        {
+            <div><span>DATE</span> @ord.OrderDate
+            </div>
+            <div><span>DUE DATE</span> @ord.RequiredDate
+            </div>
+        }
+        </div>
+    </header>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="service">SERVICE</th>
+                    <th class="desc">DESCRIPTION</th>
+                    <th>PRICE</th>
+                    <th>QTY</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
+            <tbody>
+            @foreach (var c in Model.OrdDetInstVMs)
+            {
+                <tr>
+                    <td class="service">@c.OrderId</td>
+                    <td class="desc">@c.Article</td>
+                    <td class="unit">@c.Price Kr</td>
+                    <td class="qty">@c.Quantity</td>
+                    <td class="total">@c.Total Kr</td>
+                </tr>
+            }
+           @foreach (var o in @Model.OrderInstVMs)
+           {
+                <tr>
+                    <td colspan="4">SUBTOTAL</td>
+                    <td class="total">@o.TotalToPay</td>
+                </tr>
+                <tr>
+                    <td colspan="4">beskatta @o.AdvancePaymentTax %</td>
+                    <td class="total">@o.AdvancePaymentTaxAmount</td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="grand total">GRAND TOTAL</td>
+                    <td class="grand total">@o.TotalWithVat</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        <div id="notices">
+            <div>NOTICE:</div>
+            <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
+        </div>
+    </div>
+    <footer id="InfoFooter">
+        Invoice was created on a computer and is valid without the signature and seal.
+    </footer>
+</div>
