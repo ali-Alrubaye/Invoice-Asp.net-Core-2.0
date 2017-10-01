@@ -32,7 +32,7 @@ namespace Repositories
 
         public async Task<IEnumerable<Order>> GetAll()
         {
-            
+       
             var getAll = ctx.Orders
                 .Include(c => c.CustomerOrders)
                 .Include(o => o.OrderODs).ThenInclude(i => i.Products)

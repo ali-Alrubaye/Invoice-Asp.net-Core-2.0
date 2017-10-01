@@ -151,12 +151,14 @@ namespace Repositories.Migrations
                         column: x => x.OrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_OrderDetails_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "ProductId",
+                        onUpdate: ReferentialAction.Cascade,
                         onDelete: ReferentialAction.Cascade);
                 });
 
