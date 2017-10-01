@@ -146,8 +146,6 @@ namespace Repositories.Migrations
 
                     b.Property<int>("ProductId");
 
-                    b.Property<string>("Article");
-
                     b.Property<string>("Notes");
 
                     b.Property<decimal>("Price");

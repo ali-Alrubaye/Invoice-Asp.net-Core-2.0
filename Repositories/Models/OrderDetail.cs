@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Repositories.Models
+﻿namespace Repositories.Models
 {
     public class OrderDetail
     {
@@ -9,7 +7,7 @@ namespace Repositories.Models
 
         public int OrderId { get; set; }
         public Order Orders { get; set; }
-        public string Article { get; set; }
+        //public string Article { get; set; }
 
         public short Quantity { get; set; }
 

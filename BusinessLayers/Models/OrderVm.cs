@@ -15,7 +15,7 @@ namespace BusinessLayers.Models
         }
 
         public int OrderId { get; set; }
-        [DisplayName("NO")]
+        [DisplayName("Order NO")]
         public int OrderNumber { get; set; }
         [DisplayName("Skapad Datum")]
         [DataType(DataType.Date)]

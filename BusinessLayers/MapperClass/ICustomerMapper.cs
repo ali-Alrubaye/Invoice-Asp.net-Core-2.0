@@ -9,7 +9,8 @@ namespace BusinessLayers.MapperClass
         Task BlDeleteAsync(int id);
         Task<IEnumerable<CustomerVm>> BlGetAll();
         IEnumerable<CustomerVm> BlGetAllCustomer();
-        Task<CustomerVm> BlGetById(int? id);
+        Task<CustomerVm> BlGet_Cust_Comp_ById(int? id);
+        Task<CustomerVm> BlGetCustById(int? id);
         Task BlInser(CustomerVm Customer);
         Task BlUpdateAsync(CustomerVm Customer);
         bool CustomerExists(int id);

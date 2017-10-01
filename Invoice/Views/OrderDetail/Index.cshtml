@@ -16,6 +16,9 @@
             @Html.DisplayNameFor(model => model.OrderId)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.OrdersVm.OrderNumber)
         </th>
         <th>
@@ -38,6 +41,9 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrdersVm.OrderNumber)

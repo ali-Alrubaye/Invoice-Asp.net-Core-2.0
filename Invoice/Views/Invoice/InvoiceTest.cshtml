@@ -32,11 +32,11 @@
                 }
             </div>
         </header>
-
+       
         <section>
             <div class="details clearfix">
                 @foreach (var i in @Model.CustomerInstVMs)
-                    {
+                {
                     <div class="client left">
                         <p>INVOICE TO:</p>
                         <p class="name">@i.FullName</p>
@@ -46,18 +46,16 @@
                         </p>
                         <a href="@i.Email">@i.Email</a>
                     </div>
-                    }
+                }
 
 
                 <div class="data right">
-                    @foreach (var i in @Model.OrderInstVMs)
-                      {
-                        <div class="title">Invoice 3-2-1</div>
+                
+                        <div class="title">Invoice </div>
                         <div class="date">
-                            Date of Invoice:@i.OrderDate <br>
-                            Due Date: @i.RequiredDate
+                       
                         </div>
-                      }
+                    
                 </div>
 
             </div>
@@ -67,8 +65,15 @@
                         <tbody class="head">
                             <tr>
                                 <th class="no"></th>
+
                                 <th class="desc">
                                     <div>Description</div>
+                                </th>
+                                <th class="odate">
+                                    <div>Order Date</div>
+                                </th>
+                                <th class="rdate">
+                                    <div>Required Date</div>
                                 </th>
                                 <th class="qty">
                                     <div>Quantity</div>
@@ -82,14 +87,17 @@
                             </tr>
                         </tbody>
 
-                        @foreach (var i in @Model.OrdDetInstVMs)
-                        {
-                            <tbody class="body">
 
+                        <tbody class="body">
+                            @foreach (var i in @Model.OrdDetInstVMs)
+                            {
 
                                 <tr>
                                     <td class="no">@i.OrderId</td>
+                                    
                                     <td class="desc">@i.Article</td>
+                                    <td class="odate">@i.OrdersVm.OrderDate</td>
+                                    <td class="rdate">@i.OrdersVm.RequiredDate</td>
                                     <td class="qty">@i.Quantity</td>
                                     <td class="unit">@i.Price</td>
                                     <td class="total">@i.Total</td>
@@ -109,8 +117,9 @@
                                         <td class="unit">$40.00</td>
                                         <td class="total">$800.00</td>
                                     </tr>*@
-                            </tbody>
-                        }
+                            }
+                        </tbody>
+
                     </table>
                 </div>
                 <div class="no-break">
@@ -127,17 +136,17 @@
                                     <td class="unit">SUBTOTAL:</td>
                                     <td class="total">$@c.NetTotal</td>
                                 </tr>
-                                    <tr>
-                                        <td class="no"></td>
-                                        <td class="desc"></td>
-                                        <td class="qty"></td>
-                                        <td class="unit">AX @c.AdvancePaymentTax:</td>
-                                        <td class="total">$@c.AdvancePaymentTaxAmount</td>
-                                    </tr>
+                                <tr>
+                                    <td class="no"></td>
+                                    <td class="desc"></td>
+                                    <td class="qty"></td>
+                                    <td class="unit">AX @c.AdvancePaymentTax:</td>
+                                    <td class="total">@c.AdvancePaymentTaxAmount</td>
+                                </tr>
                                     <tr>
                                         <td class="grand-total" colspan="5">
                                             <div>
-                                                <span>GRAND TOTAL:</span>$@c.TotalWithVat
+                                                <span>GRAND TOTAL:</span>@c.TotalWithVat kr
                                             </div>
                                         </td>
                                     </tr>
@@ -165,3 +174,82 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        var url = '@Url.Action("GetCustomerJson")';
+
+        //$.getJSON(url,
+        //    function (data) {
+
+        //        loadDataCustomer(data);
+
+        //    });
+
+        $.ajax({
+            url: url,
+            type: 'Post',
+
+            cache: false,
+            dataType: 'json',
+            async: true,
+            contentType: "application/json",
+            processData: false,
+
+            success: function (data) {
+
+                loadData(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+
+
+    });
+    function loadData(data) {
+
+        console.log(data);
+        //Here i will format & load/Show data
+        var tab = $('<table class="table myTable"></table>');
+
+
+        var ulList = $('<ul></ul>');
+        ulList.append(
+            '<li class=""><span> Billed To: </span></li>' +
+            //'<li class="list-group-item">FullName: ' + '<span class="">' + data.customerId + '</span>'+ '</li>'+
+            '<li class=""> ' + '<span class="">' + data.fullName + '</span>'+ '</li>'+
+            //'<li class="list-group-item">ContactPerson: ' + data.contactPerson + '</li>' +
+            //'<li class="list-group-item">ContactTitle: ' + data.contactTitle + '</li>' +
+            '<li class=""> ' + data.address + '</li>' +
+            '<li class=""> ' + data.city + '</li>' +
+            '<li class=""> ' + data.postCode + '</li>' +
+            '<li class=""> ' + data.region + '</li>' +
+            '<li class=""> ' + data.country + '</li>' +
+            '<li class=""> ' + data.phone + '</li>' +
+            //'<li class="list-group-item">Phone2: ' + data.phone2 + '</li>' +
+            //'<li class="list-group-item">Fax: ' + data.fax + '</li>' +
+            '<li class=""> ' + data.email + '</li>' +
+            //'<li class="list-group-item">Notes: ' + data.notes + '</li>' +
+            '<li>'+
+
+            '</li>'
+        );
+
+
+
+        $('li:odd', tab).css('background-color', 'lightgray');
+
+
+        $('#UpdateCust').html(ulList);
+        //document.getElementById("UpdateCust").innerHTML = tab;
+    }
+
+</script>

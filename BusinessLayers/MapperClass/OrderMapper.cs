@@ -30,7 +30,12 @@ namespace BusinessLayers.MapperClass
             var randomOrder = Mapper.Map<Order, OrderVm>(getRepo);
             return randomOrder;
         }
-
+        public async Task<List<OrderVm>> GetOrderById(int? id)
+        {
+            var getRepo = await _OrderRepository.GetOrderById(id);
+            var randomOrder = Mapper.Map<List<Order>, List<OrderVm>>(getRepo);
+            return randomOrder;
+        }
         public async Task BlInser(OrderVm Order)
         {
             var addMap = Mapper.Map<OrderVm, Order>(Order);

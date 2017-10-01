@@ -9,7 +9,8 @@ namespace Repositories.IRepositories
 {
     public interface ICustomer
     {
-        Task<Customer> GetByID(int? id);
+        Task<Customer> GetCustomer_include_CompanyByID(int? id);
+        Task<Customer> GetCustomerById(int? id);
 
         IQueryable<Customer> SearchFor(Expression<Func<Customer, bool>> predicate);
 

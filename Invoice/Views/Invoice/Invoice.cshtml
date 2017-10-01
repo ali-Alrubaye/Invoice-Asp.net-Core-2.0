@@ -1,0 +1,251 @@
+﻿@model CustomerVm
+
+@{
+    ViewData["Title"] = "Invoice";
+}
+
+
+<style>
+    #jumbotron {
+        /*background-color: #2A8EAC;*/
+        /*color: white;*/
+        text-align: center;
+        font-family: revert
+    }
+    #tdInfo {
+        background-color: #6A9EAC;
+        color: white;
+            
+    }
+    #ulCust {
+        /*background-color: #2A8EAC;*/
+        list-style-type: none;
+        clear: both;
+        float: left;
+        padding-left: 5px;
+    }
+    #ulComp {
+        list-style-type: none;
+        clear: both;
+        float: right;
+    }
+    #UpdateComp {
+      
+       
+        
+        /*text-align: right;
+        list-style-position: inside;*/
+    }
+</style>
+<div class="container">
+    <div class="jumbotron" id="jumbotron">
+        <h1>Invoice</h1>
+    </div>
+    <div class="row" >
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div id="UpdateCust"></div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+            <div id="UpdateComp"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <strong>Order summary</strong>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="table table-condensed">
+                        <table id="tbOrd" class="table table-hover"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>Thank you!</p>
+        <p>Contact information: <a href="mailto:Company@example.com">Company@example.com</a>.</p>
+    </footer>
+
+    <p><strong>Note:</strong> Invoice was created on a computer and is valid without the signature and seal.</p>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+  
+
+    $(document).ready(function() {
+       
+        getCustomerInvo(@Model.CustomerId);
+        getCompanyInvo(@Model.CustomerId);
+        getOrderDetailsInvo(@Model.CustomerId);
+           
+    });
+    function getCustomerInvo(id) {
+        var url = '/Invoice/GetCustomerJson' + "?id=" + id;
+
+        $.getJSON(url,
+            function (data) {
+
+                loadDataCustomer(data);
+
+            });
+    }
+    function getCompanyInvo(id) {
+        var url = '/Invoice/GetCompanyJson' + "?id=" + id;
+
+        $.getJSON(url,
+            function (data) {
+
+                loadDataComp(data);
+
+            });
+    }
+    function getOrderDetailsInvo(id) {
+        var url = '/Invoice/GetOederDetailsJson' + "?id=" + id;
+
+        $.getJSON(url,
+            function (data) {
+
+                loadOrderDetailsInfo(data);
+
+            });
+       
+
+    }
+
+    function loadOrderDetailsInfo(data) {
+        //Here i will format & load/Show data
+        //var tab = $('<table class="table table-hover myTable"></table>');
+        var thead = $('<thead></thead>');
+        var tbody = $('<tbody></tbody>');
+        var trow = $('<tr></tr>');
+        trow.append('<th>No</th>');
+        trow.append('<th>Article</th>');
+        trow.append('<th>OrderDate</th>');
+        trow.append('<th>RequiredDate</th>');
+        trow.append('<th>Quantity</th>');
+        trow.append('<th>Price</th>');
+        trow.append('<th>Total</th>');
+        thead.append(trow);
+
+        var trow3 = $('<tr class="thick-line"></tr>');
+        var trow4 = $('<tr class="thick-line"></tr>');
+        var sumTotal = 0;
+        $.each(data,
+            function (i, val) {
+                var trow2 = $('<tr></tr>');
+                $.each(val.orderDetailsVm,
+                    function (j, v) {
+                        sumTotal += v.total;
+                        trow2.append('<td>' + i + '</td>');
+                        trow2.append('<td>' + v.article + '</td>');
+                        trow2.append('<td>' + val.orderDate + '</td>');
+                        trow2.append('<td>' + val.requiredDate + '</td>');
+                        trow2.append('<td>' + v.quantity + '</td>');
+                        trow2.append('<td>' + v.price + '</td>');
+                        trow2.append('<td>' + v.total + '</td>');
+                    });
+                tbody.append(trow2);
+
+            });
+        trow3.append('<td class="no-line"></td>');
+        trow3.append('<td class="no-line"></td>');
+        trow3.append('<td class="no-line"></td>');
+        trow3.append('<td class="no-line"></td>');
+        trow3.append('<td class="no-line"></td>');
+        trow3.append('<td class="no-line text-center" id="tdInfo"><strong>Subtotal</strong></td>');
+        trow3.append('<td class="no-line text-center" id="tdInfow">' + sumTotal + '</td>');
+        tbody.append(trow3);
+        trow4.append('<td class="no-line"></td>');
+        trow4.append('<td class="no-line"></td>');
+        trow4.append('<td class="no-line"></td>');
+        trow4.append('<td class="no-line"></td>');
+        trow4.append('<td class="no-line"></td>');
+        trow4.append('<td class="no-line text-center" id="tdInfo"><strong>Total</strong></td>');
+        trow4.append('<td class="no-line text-center" id="tdInfow">' + sumTotal + '</td>');
+        tbody.append(trow4);
+
+        //$('li:odd', tab).css('background-color', 'lightgray');
+
+        $('#tbOrd').append(thead);
+        $('#tbOrd').append(tbody);
+
+    }
+    function loadDataComp(data) {
+
+        //console.log(data);
+        //Here i will format & load/Show data
+
+
+        var ulList = $('<ul id="ulComp"></ul>');
+        ulList.append(
+            '<li class=""><strong> Företag Info: </strong></li>' +
+            //'<li class="list-group-item">FullName: ' + '<span class="">' + data.customerId + '</span>'+ '</li>'+
+            '<li class=""> ' + '<span class="">' + data.companyName + '</span>' + '</li>' +
+            //'<li class="list-group-item">ContactPerson: ' + data.contactPerson + '</li>' +
+            //'<li class="list-group-item">ContactTitle: ' + data.contactTitle + '</li>' +
+            '<li class=""> '  + data.address + '</li>' +
+            '<li class=""> ' + data.postCode + ' ' + data.city + '</li>' +
+            //'<li class=""> ' + data.postCode + '</li>' +
+            '<li class=""> ' + data.region + '</li>' +
+            '<li class=""> ' + data.country + '</li>' +
+            '<li class=""> ' + data.phone + '</li>' +
+            //'<li class="list-group-item">Phone2: ' + data.phone2 + '</li>' +
+            //'<li class="list-group-item">Fax: ' + data.fax + '</li>' +
+            '<li class=""> ' + data.email + '</li>' +
+            '<li class=""> ' + data.website + '</li>' +
+            //'<li class="list-group-item">Notes: ' + data.notes + '</li>' +
+            '<li>' +
+
+            '</li>'
+        );
+
+
+
+        //$('li:odd', ulList).css('background-color', 'lightgray');
+
+
+        $('#UpdateComp').html(ulList);
+        //document.getElementById("UpdateCust").innerHTML = tab;
+    }
+    function loadDataCustomer(data) {
+
+        //console.log(data);
+        //Here i will format & load/Show data
+
+
+        var ulList = $('<ul id="ulCust"></ul>');
+        ulList.append(
+            '<li class=""><strong> Customer To: </strong></li>' +
+            //'<li class="list-group-item">FullName: ' + '<span class="">' + data.customerId + '</span>'+ '</li>'+
+            '<li class=""> ' + '<span class="">' + data.fullName + '</span>' + '</li>' +
+            //'<li class="list-group-item">ContactPerson: ' + data.contactPerson + '</li>' +
+            //'<li class="list-group-item">ContactTitle: ' + data.contactTitle + '</li>' +
+            '<li class=""> ' + data.address + '</li>' +
+            '<li class=""> ' + data.city + '</li>' +
+            '<li class=""> ' + data.postCode + '</li>' +
+            '<li class=""> ' + data.region + '</li>' +
+            '<li class=""> ' + data.country + '</li>' +
+            '<li class=""> ' + data.phone + '</li>' +
+            //'<li class="list-group-item">Phone2: ' + data.phone2 + '</li>' +
+            //'<li class="list-group-item">Fax: ' + data.fax + '</li>' +
+            '<li class=""> ' + data.email + '</li>' +
+            //'<li class="list-group-item">Notes: ' + data.notes + '</li>' +
+            '<li>' +
+
+            '</li>'
+        );
+
+
+
+        //$('li:odd', ulList).css('background-color', 'lightgray');
+
+
+        $('#UpdateCust').html(ulList);
+        //document.getElementById("UpdateCust").innerHTML = tab;
+    }
+</script>

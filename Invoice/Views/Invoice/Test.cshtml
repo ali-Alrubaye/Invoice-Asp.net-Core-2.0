@@ -23,29 +23,23 @@
 <div class="container">
     <div class="jumbotron"></div>
     <div class="row">
-        <div class="col-xs-12">
+        <div class="col-md-12 col-xs-12">
             <div class="invoice-title">
                 <h2>Invoice</h2>
                 <h3 class="pull-right">Order # 12345</h3>
             </div>
             <hr>
             <div class="row">
-                <div class="col-xs-6">
-                    <address>
-                        <strong>Billed To:</strong><br>
-                        John Smith<br>
-                        1234 Main<br>
-                        Apt. 4B<br>
-                        Springfield, ST 54321
-                    </address>
+                <div class="col-md-4 col-xs-6 text-left pull-left">
+                  
+                        <ul id="UpdateCust"></ul>
+                   
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-md-4 col-xs-2"></div>
+                <div class="col-md-4 col-xs-6 text-left">
                     <address>
-                        <strong>Shipped To:</strong><br>
-                        Jane Smith<br>
-                        1234 Main<br>
-                        Apt. 4B<br>
-                        Springfield, ST 54321
+                        <ul id="UpdateComp"></ul>
+                       
                     </address>
                 </div>
             </div>
@@ -131,30 +125,136 @@
         </div>
     </div>
 </div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script type="text/javascript">
 
-@*<div class="table-responsive borderless">
-    <table class="table table-striped ">
-        <tbody>
-        <tr>
-            <th>Row</th>
-            <td>1</td>
-                      
-        </tr>
-        <tr>
-            <th>First Name</th>
-            <td>John</td>
-                       
-        </tr>
-        <tr>
-            <th>Last Name</th>
-            <td>Carter</td>
-                       
-        </tr>
-        <tr>
-            <th >Email</th>
-            <td rowspan="3">johncarter@mail.com, johncarter@mail.com, johncarter@mail.com, johncarter@mail.com </td>
-                 
-        </tr>
-        </tbody>
-    </table>
-</div>*@
+    $(document).ready(function () {
+
+        getCustomerInvo(1);
+        getCompanyInvo(1);
+
+
+    });
+    function getCustomerInvo(id) {
+        var url = '@Url.Action("GetCustomerJson")' +"?id="+id;
+
+        $.getJSON(url,
+            function (data) {
+
+                loadData(data);
+
+            });
+    }
+    function getCompanyInvo(id) {
+        var url = '@Url.Action("GetCompanyJson")' +"?id="+id;
+
+        $.getJSON(url,
+            function (data) {
+
+                loadDataComp(data);
+
+            });
+    }
+    function loadDataComp(data) {
+
+        //console.log(data);
+        //Here i will format & load/Show data
+        var tab = $('<table class="table myTable"></table>');
+
+
+        var ulList = $('<ul></ul>');
+        ulList.append(
+            '<li class=""><strong> Företag Info: </strong></li>' +
+            //'<li class="list-group-item">FullName: ' + '<span class="">' + data.customerId + '</span>'+ '</li>'+
+            '<li class=""> ' + '<span class="">' + data.CompanyName + '</span>'+ '</li>'+
+            //'<li class="list-group-item">ContactPerson: ' + data.contactPerson + '</li>' +
+            //'<li class="list-group-item">ContactTitle: ' + data.contactTitle + '</li>' +
+            '<li class=""> ' + data.address + '</li>' +
+            '<li class=""> ' + data.city + '</li>' +
+            '<li class=""> ' + data.postCode + '</li>' +
+            '<li class=""> ' + data.region + '</li>' +
+            '<li class=""> ' + data.country + '</li>' +
+            '<li class=""> ' + data.phone + '</li>' +
+            //'<li class="list-group-item">Phone2: ' + data.phone2 + '</li>' +
+            //'<li class="list-group-item">Fax: ' + data.fax + '</li>' +
+            '<li class=""> ' + data.email + '</li>' +
+            '<li class=""> ' + data.Website + '</li>' +
+            //'<li class="list-group-item">Notes: ' + data.notes + '</li>' +
+            '<li>'+
+
+            '</li>'
+        );
+
+
+
+        $('li:odd', ulList).css('background-color', 'lightgray');
+
+
+        $('#UpdateComp').html(ulList);
+        //document.getElementById("UpdateCust").innerHTML = tab;
+    }
+    function loadData(data) {
+
+        //console.log(data);
+        //Here i will format & load/Show data
+        var tab = $('<table class="table myTable"></table>');
+
+
+        var ulList = $('<ul></ul>');
+        ulList.append(
+            '<li class=""><strong> Billed To: </strong></li>' +
+            //'<li class="list-group-item">FullName: ' + '<span class="">' + data.customerId + '</span>'+ '</li>'+
+            '<li class=""> ' + '<span class="">' + data.fullName + '</span>'+ '</li>'+
+            //'<li class="list-group-item">ContactPerson: ' + data.contactPerson + '</li>' +
+            //'<li class="list-group-item">ContactTitle: ' + data.contactTitle + '</li>' +
+            '<li class=""> ' + data.address + '</li>' +
+            '<li class=""> ' + data.city + '</li>' +
+            '<li class=""> ' + data.postCode + '</li>' +
+            '<li class=""> ' + data.region + '</li>' +
+            '<li class=""> ' + data.country + '</li>' +
+            '<li class=""> ' + data.phone + '</li>' +
+            //'<li class="list-group-item">Phone2: ' + data.phone2 + '</li>' +
+            //'<li class="list-group-item">Fax: ' + data.fax + '</li>' +
+            '<li class=""> ' + data.email + '</li>' +
+            //'<li class="list-group-item">Notes: ' + data.notes + '</li>' +
+            '<li>'+
+
+            '</li>'
+        );
+
+
+
+        $('li:odd', ulList).css('background-color', 'lightgray');
+
+
+        $('#UpdateCust').html(ulList);
+        //document.getElementById("UpdateCust").innerHTML = tab;
+    }
+
+</script>
+    @*<div class="table-responsive borderless">
+        <table class="table table-striped ">
+            <tbody>
+            <tr>
+                <th>Row</th>
+                <td>1</td>
+
+            </tr>
+            <tr>
+                <th>First Name</th>
+                <td>John</td>
+
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>Carter</td>
+
+            </tr>
+            <tr>
+                <th >Email</th>
+                <td rowspan="3">johncarter@mail.com, johncarter@mail.com, johncarter@mail.com, johncarter@mail.com </td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>*@

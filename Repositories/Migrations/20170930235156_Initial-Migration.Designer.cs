@@ -11,7 +11,7 @@ using System;
 namespace Repositories.Migrations
 {
     [DbContext(typeof(InvoiceContext))]
-    [Migration("20170928190715_Initial-Migration")]
+    [Migration("20170930235156_Initial-Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -146,8 +146,6 @@ namespace Repositories.Migrations
                     b.Property<int>("OrderId");
 
                     b.Property<int>("ProductId");
-
-                    b.Property<string>("Article");
 
                     b.Property<string>("Notes");
 

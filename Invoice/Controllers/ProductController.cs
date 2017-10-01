@@ -38,7 +38,7 @@ namespace InvoiceTow.Controllers
         // POST: Posts/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductID,ProductName,SupplierName,CategoryID,QuantityPerUnit,UnitPrice,UnitsOnOrder")] ProductVm post)
+        public async Task<IActionResult> Create([Bind("ProductId,Article,SupplierName,CategoryId,Price,VatProduct,AdvancePaymentTax,Notes")] ProductVm post)
         {
             if (ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace InvoiceTow.Controllers
             var company = _categorymapper.BlGetAllCategory();
             //var comp = _ProductMapper.BlGetAll2();
 
-            ViewData["CategoryID"] = new SelectList(company, "CategoryID", "CategoryName", post.CategoryId);
+            ViewData["CategoryId"] = new SelectList(company, "CategoryId", "CategoryName", post.CategoryId);
            
             return View(post);
         }
@@ -94,7 +94,7 @@ namespace InvoiceTow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,SupplierName,CategoryId,QuantityPerUnit,UnitPrice,UnitsOnOrder")] ProductVm Product)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,Article,SupplierName,CategoryId,Price,VatProduct,AdvancePaymentTax,Notes")] ProductVm Product)
         {
             if (id != Product.ProductId)
             {

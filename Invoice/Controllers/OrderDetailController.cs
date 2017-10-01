@@ -29,7 +29,11 @@ namespace InvoiceTow.Controllers
             var invoiceTestContext = _orderDetailMapper.BlGetAll();
             return View(await invoiceTestContext);
         }
-
+        //public async Task<IActionResult> InvoiceTest()
+        //{
+        //    var invoiceTestContext = _orderDetailMapper.BlGetInvoiceInfoById(1);
+        //    return View(await invoiceTestContext);
+        //}
         // GET: OrderDetails/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -63,10 +67,11 @@ namespace InvoiceTow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,Article,Quantity,Price,Vat,Notes,OrdersVm")]OrderDetailVm orderDetail)
+        public async Task<IActionResult> Create([Bind("ProductId,Quantity,Price,Vat,Notes,OrdersVm")]OrderDetailVm orderDetail)
         {
             if (ModelState.IsValid)
             {
+                
                 await _orderMapper.BlInser(orderDetail.OrdersVm);
                 await _orderDetailMapper.BlInser(orderDetail);
                 return RedirectToAction(nameof(Index));
@@ -92,6 +97,8 @@ namespace InvoiceTow.Controllers
             {
                 return NotFound();
             }
+            //var ord = _orderMapper.BlGetAllOrder();
+            //ViewData["OrderId"] = new SelectList(ord, "OrderId", "OrderId");
             var prod =  _productMapper.BlGetAllProduct();
             ViewData["ProductId"] = new SelectList(prod, "ProductId", "Article");
             return View(orderDetail);
@@ -102,7 +109,7 @@ namespace InvoiceTow.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ProductId,Article,Quantity,Price,Vat,Notes")] OrderDetailVm orderDetail)
+        public async Task<IActionResult> Edit(int id, [Bind("OrderId,ProductId,Quantity,Price,Vat,Notes")] OrderDetailVm orderDetail)
         {
             if (id != orderDetail.OrderId)
             {
@@ -128,6 +135,8 @@ namespace InvoiceTow.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            //var ord = _orderMapper.BlGetAllOrder();
+            //ViewData["OrderId"] = new SelectList(ord, "OrderId", "Article", orderDetail.OrderId);
             var prod = _productMapper.BlGetAllProduct();
             ViewData["ProductId"] = new SelectList(prod, "ProductId", "Article", orderDetail.ProductId);
             return View(orderDetail);

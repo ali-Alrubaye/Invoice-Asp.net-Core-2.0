@@ -58,7 +58,7 @@ namespace InvoiceTow.Controllers
                 return NotFound();
             }
 
-            var Customer = await _CustomerMapper.BlGetById(id);
+            var Customer = await _CustomerMapper.BlGet_Cust_Comp_ById(id);
             if (Customer == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace InvoiceTow.Controllers
                 return NotFound();
             }
 
-            var Customer = await _CustomerMapper.BlGetById(id);
+            var Customer = await _CustomerMapper.BlGet_Cust_Comp_ById(id);
             if (Customer == null)
             {
                 return NotFound();
@@ -129,7 +129,7 @@ namespace InvoiceTow.Controllers
                 return NotFound();
             }
 
-            var Customer = await _CustomerMapper.BlGetById(id);
+            var Customer = await _CustomerMapper.BlGet_Cust_Comp_ById(id);
 
             if (Customer == null)
             {

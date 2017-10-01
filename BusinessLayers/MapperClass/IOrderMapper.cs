@@ -15,5 +15,7 @@ namespace BusinessLayers.MapperClass
         Task BlUpdateAsync(OrderVm Order);
         bool OrderExists(int id);
         IEnumerable<OrderVm> BlGetAllOrder();
+
+        Task<List<OrderVm>> GetOrderById(int? id);
     }
 }

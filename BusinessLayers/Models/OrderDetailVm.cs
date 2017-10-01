@@ -15,8 +15,8 @@ namespace BusinessLayers.Models
         public OrderVm OrdersVm { get; set; }
         public ProductVm ProductsVm { get; set; }
 
-        [Required]
-        public string Article { get; set; }
+        //[Required]
+        //public string Article { get; set; }
 
         [DisplayName("Qty")]
         [Range(-100000, 100000, ErrorMessage = "Mängden måste vara mellan 1 och 100000")]

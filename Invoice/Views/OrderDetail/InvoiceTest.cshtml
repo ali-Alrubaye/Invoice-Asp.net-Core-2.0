@@ -1,4 +1,5 @@
-﻿@model IEnumerable<OrderDetailVm>
+﻿@using Microsoft.EntityFrameworkCore
+@model IEnumerable<OrderDetailVm>
 @{
     ViewData["Title"] = "InvoiceTest";
 }
@@ -423,13 +424,14 @@
                                     <div>Total</div></th>
                             </tr>
                             </tbody>
+                          
                             @foreach (var i in Model)
                             {
                                 
                             
                             <tbody class="body">
                             <tr>
-                                <td class="no">@i.OrdersVm.OrderId</td>
+                                <td class="no">@i.OrderId</td>
                                 <td class="desc">@i.ProductsVm.Article</td>
                                 <td class="qty">@i.Quantity</td>
                                 <td class="unit">@i.Price</td>

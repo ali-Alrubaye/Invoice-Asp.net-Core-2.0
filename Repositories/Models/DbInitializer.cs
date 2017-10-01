@@ -338,7 +338,7 @@ namespace Repositories.Models
                         Vat = new Random().Next(10, 50),
                         Quantity = 1,
                         Price = 10000,
-                        Article = "Datorer & Tillbehör"
+                        //Article = "Datorer & Tillbehör"
                     },
                     new OrderDetail
                     {
@@ -347,7 +347,7 @@ namespace Repositories.Models
                         Vat = new Random().Next(10, 50),
                         Quantity = 1,
                         Price = 10000,
-                        Article = "Datorer & Tillbehör"
+                        //Article = "Datorer & Tillbehör"
                     },
                     new OrderDetail
                     {
@@ -356,7 +356,7 @@ namespace Repositories.Models
                         Vat = new Random().Next(10, 50),
                         Quantity = 1,
                         Price = 11000,
-                        Article = "Ljud & Bild"
+                        //Article = "Ljud & Bild"
                     },
                     new OrderDetail
                     {
@@ -365,7 +365,7 @@ namespace Repositories.Models
                         Vat = new Random().Next(10, 50),
                         Quantity = 1,
                         Price = 11000,
-                        Article = "Ljud & Bild"
+                        //Article = "Ljud & Bild"
                     }
                 };
                 foreach (OrderDetail e in orderDetails)

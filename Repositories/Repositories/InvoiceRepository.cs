@@ -52,21 +52,31 @@ namespace Repositories
 
         public async Task<Invoice> GetByIdAsync(int? id)
         {
-            
-            var orderDetailCheck = ctx.OrderDetails.FirstOrDefault(c => c.Orders.CustomerOrders.CustomerId ==  id);
+            var check = ctx.Companys.FirstOrDefault(c => c.CompanyId == id);
+            var check2 = ctx.Categorys.FirstOrDefault(c => c.CategoryId == id);
             Invoice viewModel = new Invoice();
-            viewModel.CustomerInsts =  new[] {await ctx.Customers.FirstOrDefaultAsync(o => o.CustomerId == id)};
-            viewModel.OrdInsts = new[] {await ctx.Orders.FirstOrDefaultAsync(o => o.CustomerId == id)};
-            viewModel.CompInsts = await ctx.Companys.Where(o => o.CompanyId == orderDetailCheck.Orders.CustomerOrders.CompanyId).ToListAsync();
-            viewModel.ProInsts = await ctx.Products.Where(o => o.ProductId == orderDetailCheck.ProductId).ToListAsync();
-            viewModel.CatInsts = await ctx.Categorys.Where(o => o.CategoryId == orderDetailCheck.Products.CategoryId).ToListAsync();
-            viewModel.OrdDetInsts =await ctx.OrderDetails.Where(o => o.Orders.CustomerId == id).ToListAsync();
+
+            
+            viewModel.CustomerInsts = ctx.Customers.Where(i => i.CustomerId == id);
+            viewModel.OrdInsts = ctx.Orders.Where(i => i.CustomerId == id).ToList();
+            viewModel.CompInsts = ctx.Companys.Where(i => i.CompanyId == check.CompanyId);
+            viewModel.CatInsts = ctx.Categorys.Where(i => i.CategoryId == check2.CategoryId);
+            viewModel.OrdDetInsts = ctx.OrderDetails.Where(i => i.Orders.CustomerOrders.CustomerId == id);
+
+            //var orderDetailCheck = ctx.OrderDetails.FirstOrDefault(c => c.Orders.CustomerOrders.CustomerId ==  id);
+            //Invoice viewModel = new Invoice();
+            //viewModel.CustomerInsts =  new[] {await ctx.Customers.FirstOrDefaultAsync(o => o.CustomerId == id)};
+            //viewModel.OrdInsts = await ctx.Orders.Where(o => o.CustomerId == id).ToListAsync();
+            //viewModel.CompInsts = await ctx.Companys.Where(o => o.CompanyId == orderDetailCheck.Orders.CustomerOrders.CompanyId).ToListAsync();
+            //viewModel.ProInsts = await ctx.Products.Where(o => o.ProductId == orderDetailCheck.ProductId).ToListAsync();
+            //viewModel.CatInsts = await ctx.Categorys.Where(o => o.CategoryId == orderDetailCheck.Products.CategoryId).ToListAsync();
+            //viewModel.OrdDetInsts =await ctx.OrderDetails.Where(o => o.Orders.CustomerId == id).ToListAsync();
 
             
             return  viewModel ;
 
         }
-
+       
         public async Task InsertAsync(Invoice entity)
         {
 

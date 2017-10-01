@@ -24,13 +24,18 @@ namespace BusinessLayers.MapperClass
             return randomCustomer;
         }
 
-        public async Task<CustomerVm> BlGetById(int? id)
+        public async Task<CustomerVm> BlGet_Cust_Comp_ById(int? id)
         {
-            var getRepo = await _customerRepository.GetByID(id);
+            var getRepo = await _customerRepository.GetCustomer_include_CompanyByID(id);
             var randomCustomer = Mapper.Map<Customer, CustomerVm>(getRepo);
             return randomCustomer;
         }
-
+        public async Task<CustomerVm> BlGetCustById(int? id)
+        {
+            var getRepo = await _customerRepository.GetCustomerById(id);
+            var randomCustomer = Mapper.Map<Customer, CustomerVm>(getRepo);
+            return randomCustomer;
+        }
         public async Task BlInser(CustomerVm Customer)
         {
             var addMap = Mapper.Map<CustomerVm, Customer>(Customer);

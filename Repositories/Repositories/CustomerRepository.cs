@@ -38,15 +38,15 @@ namespace Repositories
         public async Task<IEnumerable<Customer>> GetAll()
         {
 
-            var getAll = ctx.Customers;
+            var getAll = ctx.Customers
                 //.Where(x => true)
-                //.Include(c => c.Companys)
+                .Include(c => c.Companys);
                 //.Include(o => o.Orders);
                 return await getAll.ToListAsync();
             
         }
 
-        public async Task<Customer> GetByID(int? id)
+        public async Task<Customer> GetCustomer_include_CompanyByID(int? id)
         {
             
                 var find = ctx.Customers.Where(p => p.CustomerId == id).Include(c => c.Companys)
@@ -54,7 +54,14 @@ namespace Repositories
                 return await find;
             
         }
+        public async Task<Customer> GetCustomerById(int? id)
+        {
 
+            var find = ctx.Customers.Where(p => p.CustomerId == id)
+                .FirstOrDefaultAsync();
+            return await find;
+
+        }
         public async Task InsertAsync(Customer entity)
         {
            
