@@ -25,7 +25,7 @@ namespace BusinessLayers.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime RequiredDate { get; set; }
-
+        [DisplayName("Erbjudande")]
         public bool IsOffer { get; set; }
         [DisplayName("erbjuda detaljer")]
         public string OfferlDetails { get; set; }

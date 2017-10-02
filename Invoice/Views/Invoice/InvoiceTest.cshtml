@@ -14,7 +14,6 @@
             <div class="container">
                 @foreach (var i in @Model.CompInstVMs)
                 {
-
                     //foreach (var i in p.OrdersVm)
                     //{
                     <figure>
@@ -95,7 +94,7 @@
                                 <tr>
                                     <td class="no">@i.OrderId</td>
                                     
-                                    <td class="desc">@i.Article</td>
+                                    
                                     <td class="odate">@i.OrdersVm.OrderDate</td>
                                     <td class="rdate">@i.OrdersVm.RequiredDate</td>
                                     <td class="qty">@i.Quantity</td>

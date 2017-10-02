@@ -29,20 +29,6 @@ namespace Repositories
 
         public async Task UpdateAsync(OrderDetail entity)
         {
-
-            //.FirstOrDefault(p => p.OrderId == entity.OrderId);
-            //if (updateOd != null)
-            //{
-            //    updateOd.OrderId = entity.OrderId;
-            //    updateOd.ProductId = entity.ProductId;
-            //    updateOd.Notes = entity.Notes;
-            //    updateOd.Quantity = entity.Quantity;
-            //    updateOd.Price = entity.Price;
-            //    updateOd.Vat = entity.Vat;
-            //}
-            //ctx.SaveChanges();
-
-            //ctx.Entry(updateOd).State = EntityState.Modified;
             ctx.Update(entity);
             await ctx.SaveChangesAsync();
         }
@@ -102,7 +88,6 @@ namespace Repositories
             var n = num;
 
             entity.OrderId = n;
-            //ctx.Add(entity);
             ctx.Entry(entity).State = EntityState.Added;
             await ctx.SaveChangesAsync();
         }
